@@ -1,0 +1,56 @@
+{
+  "name": "cuando-se-come-aqui-server",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "pm2 start package.json --no-daemon",
+    "develop": "pm2-dev run package.json",
+    "stop": "pm2 stop package.json",
+    "clean": "pm2 delete package.json",
+    "log": "pm2 logs cuando-se-come-aqui-server",
+    "lint": "eslint index.js src test",
+    "test": "mocha test/**/*_spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliorb/cuando-se-come-aqui-server.git"
+  },
+  "author": {
+    "name": "Elior",
+    "email": "elior.b@dynamicyield.com"
+  },
+  "license": "LicenseRef-LICENSE",
+  "bugs": {
+    "url": "https://github.com/eliorb/cuando-se-come-aqui-server/issues"
+  },
+  "homepage": "https://github.com/eliorb/cuando-se-come-aqui-server#readme",
+  "dependencies": {
+    "babel": "5.8.23",
+    "babel-core": "5.8.23",
+    "babel-eslint": "^4.1.6",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "cors": "^2.7.1",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0",
+    "winston": "^2.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "eslint": "^1.9.0",
+    "mocha": "^2.3.3",
+    "sinon": "^1.17.2"
+  },
+  "apps": [
+    {
+      "name": "cuando-se-come-aqui-server",
+      "script": "index.js"
+    }
+  ]
+}
