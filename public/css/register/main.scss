@@ -1,10 +1,10 @@
-@import "themes/modern/variables";
+@import "themes/flatly/variables";
 
 @import "vendors/bootstrap/bootstrap";
 @import "vendors/bootstrap-social";
 @import "vendors/font-awesome/font-awesome";
 
-@import "themes/modern/modern";
+@import "themes/flatly/flatly";
 
 // Scaffolding
 // -------------------------
@@ -17,6 +17,7 @@ html {
 body {
   padding-top: 60px;
   margin-bottom: 75px;
+  background: linear-gradient(330deg, lighten($brand-success, 50%) 65%, $brand-success);
 }
 
 footer {
