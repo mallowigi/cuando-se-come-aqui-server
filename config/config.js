@@ -3,7 +3,7 @@
  */
 var config = {
   'DEVELOPMENT': {
-    db: 'mongodb://localhost/passport'
+    db: 'mongodb://localhost/muchacho'
   }
 };
 

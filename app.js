@@ -62,12 +62,17 @@ app.use(lusca({
   xssProtection: true
 }));
 
+// Used to display whether the user is logged in
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 // ROUTES
 app.use('/', routes);
-//app.use('/users', users);
 
 
 // error handlers
