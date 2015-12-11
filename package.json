@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "pm2 start package.json --no-daemon",
-    "develop": "pm2-dev run package.json",
+    "develop": "nodemon index.js",
     "stop": "pm2 stop package.json",
     "clean": "pm2 delete package.json",
     "log": "pm2 logs cuando-se-come-aqui-server",

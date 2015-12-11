@@ -6,10 +6,9 @@ var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var passport = require('passport-local-mongoose');
 
 var UserSchema = new Schema({
-  email: {type: String, unique: true, lowercase: true},
+  email: {type: String, unique: true, lowercase: true, index: true},
   password: String,
   facebook: String,
 
@@ -73,8 +72,6 @@ UserSchema.methods.gravatar = function (size) {
   return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
 };
 
-
-UserSchema.plugin(passport);
 
 var User = mongoose.model('User', UserSchema);
 

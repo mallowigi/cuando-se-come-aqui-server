@@ -19,8 +19,7 @@ var config = require('./config/config');
 var secrets = require('./config/secrets');
 var passportConf = require('./config/passport');
 
-var routes = require('./routes/index');
-//var users = require('./routes/users');
+var routes = require('./routes/home');
 
 var app = express();
 
