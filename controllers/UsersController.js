@@ -1,6 +1,14 @@
 var passport = require('passport');
-var User = require('../models/User');
 var Q = require('Q');
+var crypto = require('crypto');
+var Mailgun = require('mailgun').Mailgun;
+
+var secrets = require('../config/secrets');
+
+var User = require('../models/User');
+
+// Init mailgun
+var mailgun = new Mailgun(secrets.mailgun.key);
 
 exports.login = function login (req, res) {
   res.render('account/login', {title: 'Login'});
@@ -94,5 +102,120 @@ exports.forgot = function forgot (req, res, next) {
 };
 
 exports.postForgot = function postForgot (req, res, next) {
+  req.assert('email', 'Please enter a valid email address').isEmail();
+  var errors = req.validationErrors();
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/forgot');
+  }
 
+  var _token,
+      _user;
+
+  return Q.ninvoke(crypto, 'randomBytes', 16)
+    .then(function (buf) {
+      return buf.toString('hex');
+    })
+    .then(function (token) {
+      _token = token;
+      return User.findOne({email: req.body.email.toLowerCase()});
+    })
+    .then(function (user) {
+      if (!user) {
+        req.flash('errors', {msg: 'There is no account with this email address'});
+        return res.redirect('/forgot');
+      }
+
+      _user = user;
+      user.resetPasswordToken = _token;
+      user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+      return user.save();
+    })
+    .then(function () {
+      var subject = 'Reset your password';
+      var body = 'You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        'http://' + req.headers.host + '/reset/' + _token + '\n\n' +
+        'If you did not request this, please ignore this email and your password will remain unchanged.\n';
+
+      return Q.ninvoke(mailgun, 'sendText', secrets.mailgun.user, req.body.email, subject, body);
+    })
+    .then(function () {
+      req.flash('info', {msg: 'An email has been sent to ' + req.body.email + ' with further instructions'});
+      return res.redirect('/forgot');
+    })
+    .then(undefined, function (err) {
+      req.flash('errors', err);
+      return res.redirect('/forgot');
+    })
+};
+
+exports.reset = function reset (req, res, next) {
+  return User.findOne({resetPasswordToken: req.params.token})
+    .where('resetPasswordExpires').gt(Date.now())
+    .exec()
+    .then(function (user) {
+      if (!user) {
+        req.flash('errors', {msg: 'Password reset token is invalid or has expired'});
+        return res.redirect('/forgot');
+      }
+
+      res.render('account/reset', {title: 'Password Reset'});
+    })
+    .then(undefined, function (err) {
+      req.flash('errors', err);
+      return res.redirect('/forgot');
+    })
+};
+
+exports.postReset = function postReset (req, res, next) {
+  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('confirm', 'Passwords must match').equals(req.body.password);
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('back');
+  }
+
+  // First find the user with the given reset token
+  User.findOne({resetPasswordToken: req.params.token})
+    .where('resetPasswordExpires').gt(Date.now())
+    .exec()
+    .then(function (user) {
+      if (!user) {
+        req.flash('errors', {msg: 'Password reset token is invalid or has expired'});
+        return res.redirect('/forgot');
+      }
+
+      // reset the password
+      user.password = req.body.password;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+
+      return user.save().then(function () {
+        return req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          return user;
+        });
+      });
+    })
+    .then(function () {
+      var subject = 'Password change confirmation';
+      var body = 'Your password has been changed';
+
+      return Q.ninvoke(mailgun, 'sendText', secrets.mailgun.user, req.body.email, subject, body);
+    })
+    .then(function () {
+      req.flash('success', {msg: 'Your password has been changed'});
+      return res.redirect('/');
+    })
+    .then(undefined, function (err) {
+      req.flash('errors', {msg: err.message});
+      return res.redirect('/forgot');
+    })
 };

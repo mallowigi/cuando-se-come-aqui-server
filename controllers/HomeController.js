@@ -8,8 +8,8 @@ exports.index = function home (req, res) {
   res.render('home', {title: 'Home'});
 };
 
-exports.redirect = function redirect (req, res, next) {
-  if (req.user) {
+exports.redirectLoggedIn = function redirectLoggedIn (req, res, next) {
+  if (req.user && req.isAuthenticated()) {
     return res.redirect('/');
   }
   next();

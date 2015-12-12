@@ -7,17 +7,18 @@ var UserCtrl = require('../controllers/UsersController');
 router.get('/', HomeCtrl.index);
 
 // Login page
-router.get('/login', HomeCtrl.redirect, UserCtrl.login);
+router.get('/login', HomeCtrl.redirectLoggedIn, UserCtrl.login);
 router.post('/login', UserCtrl.postLogin);
 
 router.get('/logout', UserCtrl.logout);
 
-router.get('/signup', HomeCtrl.redirect, UserCtrl.signup);
+router.get('/signup', HomeCtrl.redirectLoggedIn, UserCtrl.signup);
 router.post('/signup', UserCtrl.postSignup);
 
-router.get('/forgot', HomeCtrl.redirect, UserCtrl.forgot);
+router.get('/forgot', HomeCtrl.redirectLoggedIn, UserCtrl.forgot);
 router.post('/forgot', UserCtrl.postForgot);
 
-
+router.get('/reset/:token', HomeCtrl.redirectLoggedIn, UserCtrl.reset);
+router.post('/reset/:token', UserCtrl.postReset);
 
 module.exports = router;
