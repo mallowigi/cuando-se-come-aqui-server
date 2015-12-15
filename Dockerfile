@@ -1,11 +1,13 @@
-FROM node:4.2.2
+FROM node:latest
 
-RUN npm install -g pm2
+ADD . /code
+WORKDIR /code
 
-COPY . /src
-RUN rm -rf /src/node_modules
-RUN cd /src; npm install
+RUN \
+  npm install -g nodemon bower && \
+  npm install
 
-WORKDIR /src
+EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD npm run develop
+
