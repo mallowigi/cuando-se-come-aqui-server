@@ -13,7 +13,8 @@
     "clean": "pm2 delete package.json",
     "log": "pm2 logs cuando-se-come-aqui-server",
     "lint": "eslint index.js src test",
-    "test": "mocha test/**/*_spec.js"
+    "test": "mocha test/**/*_spec.js",
+    "install": "npm install -g nodemon pm2 bower gulp"
   },
   "repository": {
     "type": "git",

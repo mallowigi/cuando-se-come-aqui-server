@@ -15,7 +15,6 @@ var errorHandler = require('errorhandler');
 var sass = require('node-sass-middleware');
 
 // App config
-var config = require('./config/config');
 var secrets = require('./config/secrets');
 var passportConf = require('./config/passport');
 
@@ -25,7 +24,7 @@ var app = express();
 
 // connect to the database
 var env = process.env.NODE_ENV || 'DEVELOPMENT';
-mongoose.connect(config[env].db);
+mongoose.connect(secrets.db);
 mongoose.connection.on('error', function () {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
