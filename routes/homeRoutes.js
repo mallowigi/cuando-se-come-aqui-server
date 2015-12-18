@@ -1,7 +1,8 @@
 var express = require('express');
+var ioc = require('electrolyte');
 var router = express.Router();
-var HomeCtrl = require('../controllers/HomeController');
-var UserCtrl = require('../controllers/UsersController');
+var HomeCtrl = ioc.create('handlers/HomeController');
+var UserCtrl = ioc.create('handlers/UsersController');
 
 /* GET home page. */
 router.get('/', HomeCtrl.index);
