@@ -1,0 +1,9 @@
+/* Set the page header to 40% the available height */
+.page-header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-height: 40vh;
+
+  @include flex-container(column, center, center);
+}

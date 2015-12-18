@@ -1,0 +1,4 @@
+.content {
+  @include flex-container(column, space-between, stretch);
+  min-height: 100vh;
+}
