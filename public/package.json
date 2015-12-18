@@ -44,17 +44,5 @@
     "run-sequence": "^1.1.2",
     "shelljs": "^0.3.0"
   },
-  "dependencies": {},
-  "jspm": {
-    "directories": {
-      "packages": "vendor"
-    },
-    "dependencies": {
-      "ionic": "github:driftyco/ionic-bower@^1.2.0",
-      "lodash": "npm:lodash@^3.10.1"
-    },
-    "devDependencies": {
-      "typescript": "npm:typescript@^1.6.2"
-    }
-  }
+  "dependencies": {}
 }

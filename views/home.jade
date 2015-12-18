@@ -5,4 +5,7 @@ extends layout
 block content
 
 block javascripts
-  script(src='/dist/js/ionic.material-design-lite.bundle.js')
+  script(src='/vendor/system.js')
+  script(src='/config.js')
+  script
+    System.import('src/main')
