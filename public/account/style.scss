@@ -9,10 +9,20 @@
 @import "bootstrap/form";
 @import "bootstrap/buttons";
 
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/breadcrumbs";
+
+
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 @import "bootstrap/social";
 
 @import "flexbox";
 // Custom
-@import "welcome/index";
+@import "custom/body";
+@import "custom/navbar";
+@import "custom/layout";
+@import "custom/header";
+@import "custom/connect";
+

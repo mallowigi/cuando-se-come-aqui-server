@@ -1,5 +1,8 @@
 extends account
 
+block header
+  include ../partials/header
+
 block content
 
   form.page-connect.form-horizontal(method='POST')
@@ -12,14 +15,11 @@ block content
         input.form-control(type='password', name='password', id='password', placeholder='Password')
     .form-group
       .col-sm-offset-3.col-sm-7
-        button.col-sm-3.btn.btn-primary(type='submit')
-          i.fa.fa-user
-          | Login
-        a.btn.btn-link(href='/forgot') Forgot your password?
+        button.col-sm-3.btn.btn-info.btn-block(type='submit')
+          | Log In
+        a.btn.btn-link.pull-left(href='#{url("forgot")}') Forgot your password?
+        a.btn.btn-link.pull-right(href='#{url("signup")}') Register
 
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        a.btn.btn-link(href='/signup') Not a member? Register
     .form-group
       .col-sm-offset-3.col-sm-7
         a.btn.btn-block.btn-facebook.btn-social(href='/auth/facebook')

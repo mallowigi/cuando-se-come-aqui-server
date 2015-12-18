@@ -10,9 +10,13 @@ html
     block stylesheets
   body
 
+    block header
+
     main.container
       include partials/flash
-      .content
+      #content
         block content
+
+    block footer
 
     block javascripts

@@ -1,0 +1,32 @@
+$back-width: 60px;
+
+.navbar {
+  background-color: transparent;
+  a {
+    color: $text-color;
+  }
+
+  li a {
+    padding: 0;
+  }
+}
+
+.navbar-mobile {
+  @include flex-container(row, flex-start, center);
+}
+
+.navbar-back {
+  padding: 1em 0;
+  @include flex(0 0 $back-width);
+
+  i {
+    margin-right: 0.5em;
+  }
+}
+
+.navbar-title {
+  @include flex(1 1 auto);
+  text-align: center;
+  font-size: 1.2em;
+  @include translate(-$back-width / 2, 0);
+}

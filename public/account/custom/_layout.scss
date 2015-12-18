@@ -1,0 +1,13 @@
+#header {
+  min-height: $navbar-height;
+
+  + #content {
+    margin-top: $navbar-height;
+  }
+}
+
+#content {
+  @include flex-container(column, space-between, stretch);
+  min-height: 90vh;
+}
+
