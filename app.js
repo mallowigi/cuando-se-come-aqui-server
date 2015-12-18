@@ -14,12 +14,14 @@ var expressValidator = require('express-validator');
 var errorHandler = require('errorhandler');
 var sass = require('node-sass-middleware');
 
+// config the ioc
+var ioc = require('./config/DI');
+
 // App config
-var secrets = require('./config/secrets');
-var passportConf = require('./config/passport');
+var secrets = ioc.create('config/secrets');
+var passportConf = ioc.create('config/passport');
 
-var routes = require('./routes/home');
-
+// Load express
 var app = express();
 
 // connect to the database
@@ -70,13 +72,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // ROUTES
-app.use('/', routes);
+app.use('/', require('./routes/homeRoutes'));
 
 
 // error handlers
-/**
- * Error Handler.
- */
 app.use(errorHandler());
 
 

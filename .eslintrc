@@ -45,7 +45,7 @@
     "no-throw-literal": 2,
     "no-lonely-if": 2,
     "no-mixed-spaces-and-tabs": 2,
-    "consistent-this": 2,
+    "consistent-this": [2, "self"],
     "no-continue": 2,
     "guard-for-in": 2
   }
