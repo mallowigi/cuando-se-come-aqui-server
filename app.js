@@ -13,9 +13,10 @@ var flash = require('express-flash');
 var expressValidator = require('express-validator');
 var errorHandler = require('errorhandler');
 var sass = require('node-sass-middleware');
+var Router = require('named-routes');
 
 // config the ioc
-var ioc = require('./config/DI');
+var ioc = require('./config/ioc');
 
 // App config
 var secrets = ioc.create('config/secrets');
@@ -63,7 +64,7 @@ app.use(lusca({
 }));
 
 // Used to display whether the user is logged in
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.user = req.user;
   next();
 });
@@ -72,12 +73,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // ROUTES
-app.use('/', require('./routes/homeRoutes'));
-
+var router = new Router();
+router.extendExpress(app);
+router.registerAppHelpers(app);
 
 // error handlers
 app.use(errorHandler());
 
+exports = module.exports = app;
 
-module.exports = app;
-
+// Define routes here so we can have the named routes inside the controllers
+require('./routes/homeRoutes')(app);

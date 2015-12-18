@@ -1,9 +1,9 @@
 /**
  * Generate the HomeController
  */
-exports = module.exports = function HomeControllerFactory (secrets) {
-  function HomeController () {
+exports = module.exports = function HomeControllerFactory (secrets, routes) {
 
+  function HomeController () {
   }
 
   /**
@@ -14,9 +14,18 @@ exports = module.exports = function HomeControllerFactory (secrets) {
    */
   HomeController.prototype.index = function home (req, res) {
     if (!req.user) {
-      return res.redirect('/login');
+      return res.redirect(routes.build('welcome'));
     }
     res.render('home', {title: 'Home'});
+  };
+
+  /**
+   * Render the welcome page
+   * @param req
+   * @param res
+   */
+  HomeController.prototype.welcome = function welcome (req, res) {
+    res.render('account/welcome', {title: 'Welcome to xxx'})
   };
 
   /**
@@ -28,7 +37,7 @@ exports = module.exports = function HomeControllerFactory (secrets) {
    */
   HomeController.prototype.redirectLoggedIn = function redirectLoggedIn (req, res, next) {
     if (req.user && req.isAuthenticated()) {
-      return res.redirect('/');
+      return res.redirect(routes.build('welcome'));
     }
     next();
   };
@@ -37,4 +46,4 @@ exports = module.exports = function HomeControllerFactory (secrets) {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['config/secrets'];
+exports['@require'] = ['config/secrets', 'config/routes'];

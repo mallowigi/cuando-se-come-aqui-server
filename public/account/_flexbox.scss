@@ -1,0 +1,7 @@
+.flex-row {
+  @include flex-container(row, space-between, center);
+
+  > * {
+    flex: 1 1 auto;
+  }
+}
