@@ -80,6 +80,8 @@ var User = mongoose.model('User', UserSchema);
 /**
  * Exports the User Model
  */
-exports = module.exports = User;
+exports = module.exports = function () {
+  return User;
+};
 
 exports['@singleton'] = true;

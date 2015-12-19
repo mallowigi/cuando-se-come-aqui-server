@@ -37,7 +37,7 @@ exports = module.exports = function HomeControllerFactory (secrets, routes) {
    */
   HomeController.prototype.redirectLoggedIn = function redirectLoggedIn (req, res, next) {
     if (req.user && req.isAuthenticated()) {
-      return res.redirect(routes.build('welcome'));
+      return res.redirect(routes.build('home'));
     }
     next();
   };

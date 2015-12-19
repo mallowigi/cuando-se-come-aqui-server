@@ -8,7 +8,7 @@ var Mailgun = require('mailgun').Mailgun;
  * @requires secrets The secrets
  * @requires {User} The User Model
  */
-exports = module.exports = function UsersControllerFactory (secrets, User) {
+exports = module.exports = function UsersControllerFactory (secrets, routes, User) {
 
   // Init Mailgun
   var mailgun = new Mailgun(secrets.mailgun.key);
@@ -53,7 +53,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       }
       if (!user) {
         req.flash('errors', {msg: info.message});
-        return res.redirect('/login');
+        return res.redirect(routes.build('login'));
       }
 
       req.logIn(user, function (err) {
@@ -61,7 +61,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
           return next(err);
         }
         req.flash('success', {msg: 'Success! You are logged in.'});
-        res.redirect(req.session.returnTo || '/');
+        res.redirect(req.session.returnTo || routes.build('home'));
       });
     })(req, res, next);
   };
@@ -74,7 +74,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
    */
   UsersController.prototype.logout = function logout (req, res, next) {
     req.logout();
-    res.redirect('/');
+    res.redirect(routes.build('welcome'));
   };
 
   /**
@@ -102,7 +102,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
 
     if (errors) {
       req.flash('errors', errors);
-      return res.redirect('/signup');
+      return res.redirect(routes.build('signup'));
     }
 
     var user = new User({
@@ -114,7 +114,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       .then(function (existingUser) {
         if (existingUser) {
           req.flash('errors', {msg: 'There is already an account with that address'});
-          return res.redirect('/signup');
+          return res.redirect(routes.build('signup'));
         }
         return existingUser;
       })
@@ -124,7 +124,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
             return Q.ninvoke(req, 'logIn', user);
           })
           .then(function () {
-            return res.redirect('/');
+            return res.redirect(routes.build('home'));
           })
           .then(undefined, function (err) {
             return next(err);
@@ -159,7 +159,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
     var errors = req.validationErrors();
     if (errors) {
       req.flash('errors', errors);
-      return res.redirect('/forgot');
+      return res.redirect(routes.build('forgot'));
     }
 
     var _token,
@@ -176,7 +176,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       .then(function (user) {
         if (!user) {
           req.flash('errors', {msg: 'There is no account with this email address'});
-          return res.redirect('/forgot');
+          return res.redirect(routes.build('forgot'));
         }
 
         _user = user;
@@ -196,11 +196,11 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       })
       .then(function () {
         req.flash('info', {msg: 'An email has been sent to ' + req.body.email + ' with further instructions'});
-        return res.redirect('/forgot');
+        return res.redirect(routes.build('forgot'));
       })
       .then(undefined, function (err) {
         req.flash('errors', err);
-        return res.redirect('/forgot');
+        return res.redirect(routes.build('forgot'));
       })
   };
 
@@ -218,14 +218,14 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       .then(function (user) {
         if (!user) {
           req.flash('errors', {msg: 'Password reset token is invalid or has expired'});
-          return res.redirect('/forgot');
+          return res.redirect(routes.build('forgot'));
         }
 
         res.render('account/reset', {title: 'Password Reset'});
       })
       .then(undefined, function (err) {
         req.flash('errors', err);
-        return res.redirect('/forgot');
+        return res.redirect(routes.build('forgot'));
       })
   };
 
@@ -253,7 +253,7 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       .then(function (user) {
         if (!user) {
           req.flash('errors', {msg: 'Password reset token is invalid or has expired'});
-          return res.redirect('/forgot');
+          return res.redirect(routes.build('forgot'));
         }
 
         // reset the password
@@ -278,11 +278,11 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
       })
       .then(function () {
         req.flash('success', {msg: 'Your password has been changed'});
-        return res.redirect('/');
+        return res.redirect(routes.build('home'));
       })
       .then(undefined, function (err) {
         req.flash('errors', {msg: err.message});
-        return res.redirect('/forgot');
+        return res.redirect(routes.build('forgot'));
       })
   };
 
@@ -290,4 +290,4 @@ exports = module.exports = function UsersControllerFactory (secrets, User) {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['config/secrets'];
+exports['@require'] = ['config/secrets', 'config/routes', 'models/User'];
