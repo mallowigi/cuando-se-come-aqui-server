@@ -5,12 +5,6 @@ var path = require('path');
 var webpack = require('webpack');
 var pkg = require('./package.json');
 
-var OccurenceOrderPlugin = webpack.optimize.OccurenceOrderPlugin;
-var CommonsChunkPlugin   = webpack.optimize.CommonsChunkPlugin;
-var DedupePlugin   = webpack.optimize.DedupePlugin;
-var DefinePlugin   = webpack.DefinePlugin;
-var NormalModuleReplacementPlugin = webpack.NormalModuleReplacementPlugin;
-
 module.exports = {
   devtool: 'eval',
   debug: true,
@@ -30,24 +24,25 @@ module.exports = {
 
   entry: {
     'angular2': [
+      'es6-shim',
       'rxjs',
       'zone.js',
       'reflect-metadata',
-      'angular2/angular2',
+      'angular2/platform/browser',
+      'angular2/http',
       'angular2/core',
       'angular2/router'
     ],
-    'app': './app/main.ts',
     'vendor': [
-    /**
-     * include any 3rd party lib here
-     */
-      'lodash/index'
-    ]
+      'lodash/index',
+      'moment'
+    ],
+    'app': './app/main.ts'
+
   },
 
   output: {
-    path: 'dist',
+    path: __dirname + '/dist',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
     chunkFilename: '[id].chunk.js'
@@ -55,7 +50,7 @@ module.exports = {
 
   resolve: {
     root: __dirname,
-    extensions: ['', '.webpack.js', '.ts', '.js']
+    extensions: ['', '.webpack.js', '.ts', '.js', '.json']
   },
 
   module: {
@@ -79,32 +74,34 @@ module.exports = {
           /node_modules/
         ]
       }
+    ],
+    noParse: [
+      /rtts_assert\/src\/rtts_assert/,
+      /reflect-metadata/
     ]
   },
 
   plugins: [
-    new NormalModuleReplacementPlugin(/config.json/, 'app/config/dev.json'),
-    new DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'VERSION': JSON.stringify(pkg.version),
-      '__DEV__': process.env.NODE_ENV === 'development' ? 'true' : 'false'
-    }),
-    new OccurenceOrderPlugin(),
-    new DedupePlugin(),
-
-    new CommonsChunkPlugin({
+    // optimize chunks by occurence order
+    new webpack.optimize.OccurenceOrderPlugin(),
+    // optimize chunks that are duplicated
+    new webpack.optimize.DedupePlugin(),
+    // Generate a chunk for angular2. Ensures that no module enters in the angular chunk
+    new webpack.optimize.CommonsChunkPlugin({
       name: 'angular2',
       minChunks: Infinity,
       filename: 'angular2.js'
     }),
-    new CommonsChunkPlugin({
+    // Generate a chunk for vendors.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+      filename: 'vendor.js'
+    }),
+    // Generate a chunk for common
+    new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'common.js'
     })
-  ],
-
-  node: {
-    crypto: false,
-    __filename: true
-  }
+  ]
 };
