@@ -199,7 +199,7 @@ exports = module.exports = function UsersControllerFactory (secrets, routes, Use
         return res.redirect(routes.build('forgot'));
       })
       .then(undefined, function (err) {
-        req.flash('errors', err);
+        req.flash('errors', {msg: 'An error occured when trying to reset the password'});
         return res.redirect(routes.build('forgot'));
       })
   };
