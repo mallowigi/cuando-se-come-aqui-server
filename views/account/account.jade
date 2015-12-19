@@ -1,10 +1,14 @@
 extends ../layout
 
 block header
-  - if (route() != 'welcome')
+  unless (route() == 'welcome')
     include ../partials/header
 
 
 block stylesheets
-  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
-  link(rel="stylesheet", href="/account/style.css")
+  link(rel="stylesheet", href="/fonts/font-awesome.min.css")
+  link(rel="stylesheet", href="/account/styles/style.css")
+
+block javascripts
+  script(src="/account/scripts/account.js")
+  block custom_js

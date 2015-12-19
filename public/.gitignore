@@ -3,7 +3,7 @@ node_modules
 .idea
 .sass-cache
 .DS_Store
-*.css
+style.css
 ### Yeoman template
 node_modules/
 bower_components/
