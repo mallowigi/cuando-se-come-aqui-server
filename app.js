@@ -77,6 +77,14 @@ var router = new Router();
 router.extendExpress(app);
 router.registerAppHelpers(app);
 
+// Append the route name to the locals
+app.use(function (req, res, next) {
+  res.locals.route = function () {
+    return req.route.name;
+  };
+  next();
+});
+
 // error handlers
 app.use(errorHandler());
 

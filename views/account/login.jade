@@ -1,8 +1,5 @@
 extends account
 
-block header
-  include ../partials/header
-
 block content
 
   form.page-connect.form-horizontal(method='POST')
@@ -26,5 +23,5 @@ block content
           i.fa.fa-facebook
           | Sign in with Facebook
         a.btn.btn-block.btn-google.btn-social(href='/auth/google')
-          i.fa.fa-google-plus
+          i.fa.fa-google
           | Sign in with Google

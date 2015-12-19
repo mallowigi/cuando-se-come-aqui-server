@@ -4,7 +4,6 @@ var HomeCtrl = ioc.create('handlers/HomeController');
 var UserCtrl = ioc.create('handlers/UsersController');
 
 exports = module.exports = function (router) {
-  /* GET home page. */
   router.get('/', 'home', HomeCtrl.index);
   router.get('/welcome', 'welcome', HomeCtrl.redirectLoggedIn, HomeCtrl.welcome);
 
