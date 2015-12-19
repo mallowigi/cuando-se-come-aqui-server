@@ -17,7 +17,6 @@ dist/
 ### Node template
 # Logs
 logs
-*.log
 npm-debug.log*
 
 # Runtime data
@@ -42,7 +41,6 @@ build/Release
 
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
-node_modules
 
 # jspm
 vendor
