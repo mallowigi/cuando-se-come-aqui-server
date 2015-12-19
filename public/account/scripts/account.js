@@ -4,7 +4,12 @@
   var app = {};
 
   // All the css selectors
-  app.regions = {};
+  app.regions = {
+    submit: 'submit',
+    email: 'email',
+    password: 'password',
+    confirm: 'confirmPassword'
+  };
 
   /**
    * Naive implementation of extend
@@ -78,39 +83,48 @@
     return pw === confirm;
   };
 
+  /**
+   * Dismiss an element
+   * @param el
+   */
+  app.dismiss = function dismiss (el) {
+    if (typeof el === 'string') {
+      var els = Array.prototype.slice.call(document.getElementsByClassName(el), 0);
+      els.forEach(function (el) {
+        el.style.display = 'none';
+      })
+    } else {
+      el.style.display = 'none';
+    }
+  };
+
   window.app = app;
 })(window);
 
-/* Signup page */
+/* Form Helpers */
 (function (app) {
-  var regions = app.extend({}, app.regions, {
-    signupButton: 'submit',
-    signupForm: 'signupForm',
-    email: 'email',
-    password: 'password',
-    confirm: 'confirmPassword'
-  });
+  var formHelpers = {};
+
+  var regions = app.regions;
   var elements = {};
 
-  var signupPage = {};
-
   /* Properties */
-  Object.defineProperties(signupPage, {
-    signupForm: {
-      get: function signupForm () {
-        if (!elements.signupForm) {
-          elements.signupForm = document.getElementById(regions.signupForm);
+  Object.defineProperties(formHelpers, {
+    form: {
+      get: function form () {
+        if (!elements.form) {
+          elements.form = document.getElementById(regions.form);
         }
-        return elements.signupForm;
+        return elements.form;
       }
     },
 
-    signupButton: {
-      get: function signupButton () {
-        if (!elements.signupButton) {
-          elements.signupButton = document.getElementById(regions.signupButton)
+    submit: {
+      get: function submit () {
+        if (!elements.submit) {
+          elements.submit = document.getElementById(regions.submit)
         }
-        return elements.signupButton;
+        return elements.submit;
       }
     },
 
@@ -142,28 +156,81 @@
     }
   });
 
+  formHelpers.extendRegions = function (newRegions) {
+    regions = app.extend({}, app.regions, newRegions);
+  };
 
   /* Events */
-  function addEventListeners () {
-    /**
-     * Listen on input events to know when the form is valid
-     */
-    signupPage.signupForm.addEventListener('input', function (event) {
-      var email    = signupPage.email.value,
-          password = signupPage.password.value,
-          confirm  = signupPage.confirm.value;
+  formHelpers.addEventListeners = function addEventListeners () {
+
+  };
+
+  app.formHelpers = formHelpers;
+})(window.app);
+
+/* Login page */
+(function (app) {
+  var regions = {
+    form: 'loginForm'
+  };
+
+  var loginPage = {};
+
+  /**
+   * Listen on input events to know when the form is valid
+   */
+  loginPage.addEventListeners = function addEventListeners () {
+
+    app.formHelpers.form.addEventListener('input', function (event) {
+      var email    = app.formHelpers.email.value,
+          password = app.formHelpers.password.value;
 
       var isValid = true;
       isValid = isValid && app.isEmail(email);
-      isValid = isValid && app.minLength(password, 4)
+      isValid = isValid && app.minLength(password, 4);
+
+      app.toggleClass(app.formHelpers.submit, 'disabled', isValid);
+    });
+  };
+
+  loginPage.init = function init () {
+    app.formHelpers.extendRegions(regions);
+    loginPage.addEventListeners();
+  };
+
+  app.loginPage = loginPage;
+})(window.app || {});
+
+/* Signup page */
+(function (app) {
+  var regions = {
+    form: 'signupForm'
+  };
+
+  var signupPage = {};
+
+  /**
+   * Listen on input events to know when the form is valid
+   */
+  signupPage.addEventListeners = function addEventListeners () {
+
+    app.formHelpers.form.addEventListener('input', function (event) {
+      var email    = app.formHelpers.email.value,
+          password = app.formHelpers.password.value,
+          confirm  = app.formHelpers.confirm.value;
+
+      var isValid = true;
+      isValid = isValid && app.isEmail(email);
+      isValid = isValid && app.minLength(password, 4);
       isValid = isValid && app.passwordMatch(password, confirm);
 
-      app.toggleClass(signupPage.signupButton, 'disabled', isValid);
-    })
-  }
+      app.toggleClass(app.formHelpers.submit, 'disabled', isValid);
+    });
+  };
 
   signupPage.init = function init () {
-    addEventListeners();
+    app.formHelpers.extendRegions(regions);
+    signupPage.addEventListeners();
   };
 
   app.signupPage = signupPage;

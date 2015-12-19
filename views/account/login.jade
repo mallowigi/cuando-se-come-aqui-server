@@ -2,7 +2,7 @@ extends account
 
 block content
 
-  form.page-connect.form-horizontal(method='POST')
+  form#loginForm.page-connect.form-horizontal(method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       .col-sm-7
@@ -12,7 +12,7 @@ block content
         input.form-control(type='password', name='password', id='password', placeholder='Password')
     .form-group
       .col-sm-offset-3.col-sm-7
-        button.col-sm-3.btn.btn-info.btn-block(type='submit')
+        button#submit.col-sm-3.btn.btn-info.btn-block.disabled(type='submit')
           | Log In
         a.btn.btn-link.pull-left(href='#{url("forgot")}') Forgot your password?
         a.btn.btn-link.pull-right(href='#{url("signup")}') Register
@@ -25,3 +25,9 @@ block content
         a.btn.btn-block.btn-google.btn-social(href='/auth/google')
           i.fa.fa-google
           | Sign in with Google
+
+block custom_js
+  script.
+    ready(function(){
+      app.loginPage && app.loginPage.init();
+    })
