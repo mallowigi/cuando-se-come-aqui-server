@@ -1,8 +1,9 @@
 {
   "name": "muchacho",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "a",
+  "author": "Elior",
+  "license": "MIT",
   "main": "dist/muchacho.js",
   "engines": {
     "node": "*"
@@ -16,7 +17,9 @@
     "css-loader": "^0.23.0",
     "exports-loader": "^0.6.2",
     "expose-loader": "^0.7.1",
+    "file-loader": "^0.8.5",
     "imports-loader": "^0.6.5",
+    "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.4.2",
@@ -31,7 +34,9 @@
   },
   "dependencies": {
     "angular2": "^2.0.0-beta.0",
+    "es6-shim": "^0.34.0",
     "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "promise-defer": "^1.0.0",
     "reflect-metadata": "^0.1.2",
     "rxjs": "^5.0.0-beta.0",
