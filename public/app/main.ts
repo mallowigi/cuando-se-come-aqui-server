@@ -1,1 +1,1 @@
-import {Test} from './common/test'
+document.write('gooddsd')

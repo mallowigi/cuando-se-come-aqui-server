@@ -4,6 +4,9 @@
 var path = require('path');
 var webpack = require('webpack');
 var pkg = require('./package.json');
+var src = __dirname + '/src';
+var dist = __dirname + '/dist';
+var publicUrl = 'http://localhost:3000/';
 
 module.exports = {
   devtool: 'eval',
@@ -15,15 +18,18 @@ module.exports = {
   stats: {colors: true, reasons: true},
 
   devServer: {
+    port: 9090,
     inline: true,
     colors: true,
     historyApiFallback: true,
-    contentBase: 'app',
-    publicPath: '/dist'
+    publicPath: '/dist/',
+    proxy: {
+      '*': 'http://localhost:3000',
+    }
   },
 
   entry: {
-    'angular2': [
+    angular2: [
       'es6-shim',
       'rxjs',
       'zone.js',
@@ -33,16 +39,17 @@ module.exports = {
       'angular2/core',
       'angular2/router'
     ],
-    'vendor': [
+    vendor: [
       'lodash/index',
       'moment'
     ],
-    'app': './app/main.ts'
+    app: ['webpack/hot/dev-server', './app/main.ts']
 
   },
 
   output: {
-    path: __dirname + '/dist',
+    publicPath: publicUrl,
+    path: dist,
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
     chunkFilename: '[id].chunk.js'
@@ -50,7 +57,8 @@ module.exports = {
 
   resolve: {
     root: __dirname,
-    extensions: ['', '.webpack.js', '.ts', '.js', '.json']
+    extensions: ['', '.ts', '.js', '.json'],
+    modulesDirectories: ['node_modules', 'src']
   },
 
   module: {
@@ -75,13 +83,14 @@ module.exports = {
         ]
       }
     ],
-    noParse: [
-      /rtts_assert\/src\/rtts_assert/,
-      /reflect-metadata/
-    ]
+    //noParse: [
+    //  /rtts_assert\/src\/rtts_assert/,
+    //  /reflect-metadata/
+    //]
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     // optimize chunks by occurence order
     new webpack.optimize.OccurenceOrderPlugin(),
     // optimize chunks that are duplicated
@@ -93,15 +102,15 @@ module.exports = {
       filename: 'angular2.js'
     }),
     // Generate a chunk for vendors.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-      filename: 'vendor.js'
-    }),
+    //new webpack.optimize.CommonsChunkPlugin({
+    //  name: 'vendor',
+    //  minChunks: Infinity,
+    //  filename: 'vendor.js'
+    //}),
     // Generate a chunk for common
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'common.js'
-    })
+    //new webpack.optimize.CommonsChunkPlugin({
+    //  name: 'common',
+    //  filename: 'common.js'
+    //})
   ]
 };
