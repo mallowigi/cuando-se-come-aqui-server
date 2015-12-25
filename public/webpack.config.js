@@ -9,7 +9,7 @@ var dist = __dirname + '/dist';
 var publicUrl = 'http://localhost:3000/';
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   debug: true,
   cache: true,
   verbose: true,
@@ -22,9 +22,11 @@ module.exports = {
     inline: true,
     colors: true,
     historyApiFallback: true,
-    publicPath: '/dist/',
+    hot: true,
+    contentBase: 'app',
+    publicPath: '/dist',
     proxy: {
-      '*': 'http://localhost:3000',
+      '*': 'http://localhost:3000'
     }
   },
 
@@ -32,7 +34,7 @@ module.exports = {
     angular2: [
       'es6-shim',
       'rxjs',
-      'zone.js',
+      //'zone.js',
       'reflect-metadata',
       'angular2/platform/browser',
       'angular2/http',
@@ -43,7 +45,11 @@ module.exports = {
       'lodash/index',
       'moment'
     ],
-    app: ['webpack/hot/dev-server', './app/bootstrap.ts']
+    app: [
+      'webpack/hot/dev-server',
+      'webpack-dev-server/client?http://localhost:9090',
+      './app/bootstrap.ts'
+    ]
   },
 
   output: {
@@ -81,7 +87,7 @@ module.exports = {
           /node_modules/
         ]
       }
-    ],
+    ]
     //noParse: [
     //  /rtts_assert\/src\/rtts_assert/,
     //  /reflect-metadata/
@@ -99,7 +105,7 @@ module.exports = {
       name: 'angular2',
       minChunks: Infinity,
       filename: 'angular2.js'
-    }),
+    })
     // Generate a chunk for vendors.
     //new webpack.optimize.CommonsChunkPlugin({
     //  name: 'vendor',

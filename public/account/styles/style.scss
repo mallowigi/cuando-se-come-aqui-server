@@ -1,24 +1,4 @@
-@import "variables";
-@import "mixins";
-
-// Bootstrap
-@import "bootstrap/global";
-@import "bootstrap/typography";
-@import "bootstrap/code";
-@import "bootstrap/grid";
-@import "bootstrap/form";
-@import "bootstrap/buttons";
-
-@import "bootstrap/navs";
-@import "bootstrap/navbar";
-@import "bootstrap/breadcrumbs";
-@import "bootstrap/alerts";
-
-@import "bootstrap/utilities";
-@import "bootstrap/responsive-utilities";
-@import "bootstrap/social";
-
-@import "flexbox";
+@import '../../common/common';
 // Custom
 @import "custom/body";
 @import "custom/navbar";

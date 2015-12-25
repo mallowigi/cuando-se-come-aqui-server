@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "pm2 start package.json --no-daemon",
-    "develop": "nodemon index.js",
+    "develop": "nodemon index.js && webpack-dev-server public/",
     "stop": "pm2 stop package.json",
     "clean": "pm2 delete package.json",
     "log": "pm2 logs cuando-se-come-aqui-server",
