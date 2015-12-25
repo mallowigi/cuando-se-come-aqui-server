@@ -43,8 +43,7 @@ module.exports = {
       'lodash/index',
       'moment'
     ],
-    app: ['webpack/hot/dev-server', './app/main.ts']
-
+    app: ['webpack/hot/dev-server', './app/bootstrap.ts']
   },
 
   output: {
