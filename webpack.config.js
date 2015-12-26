@@ -33,13 +33,9 @@ module.exports = {
 
   entry: {
     vendor: [
-      'webpack/hot/dev-server',
-      'webpack-dev-server/client?http://localhost:9090',
       './public/app/vendor.ts'
     ],
     app: [
-      'webpack/hot/dev-server',
-      'webpack-dev-server/client?http://localhost:9090',
       './public/app/bootstrap.ts'
     ]
   },
@@ -54,7 +50,7 @@ module.exports = {
 
   resolve: {
     root: __dirname,
-    extensions: ['', '.ts', '.js', '.json', '.jade', '.html', '.scss', '.css'],
+    extensions: ['', '.ts', '.js', '.json', '.jade', '.html', '.scss', '.css', '.png', '.jpg'],
     modulesDirectories: ['node_modules', 'src'],
     alias: {
       angular: 'angular2/core'
@@ -91,7 +87,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
     // optimize chunks by occurence order
     new webpack.optimize.OccurenceOrderPlugin(),
     // optimize chunks that are duplicated
