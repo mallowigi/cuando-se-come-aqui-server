@@ -6,7 +6,7 @@ var Mailgun = require('mailgun').Mailgun;
 /**
  * Generate the UsersController
  * @requires secrets The secrets
- * @requires {User} The User Model
+ * @requires {Hero} The User Model
  */
 exports = module.exports = function UsersControllerFactory (secrets, routes, User) {
 

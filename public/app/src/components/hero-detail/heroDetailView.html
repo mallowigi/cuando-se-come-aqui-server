@@ -1,0 +1,6 @@
+<div class="hero-component" *ngIf="hero">
+    <h1>Welcome {{ hero.name }}</h1>
+    <div>
+        <label>name:</label><input placeholder="name" [(ngModel)]="hero.name"/>
+    </div>
+</div>

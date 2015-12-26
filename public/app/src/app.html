@@ -1,8 +1,5 @@
-<h1>Welcome {{ user.name }}</h1>
-<div>
-  <label>name:</label><input placeholder="name" [(ngModel)]="user.name"/>
-</div>
-<ul class="heroes"> 
-  <li *ngFor="#hero of heroes">
-    <span class="badge">{{hero.id}}</span> {{hero.name}}</li>
-</ul>
+<h1>Test</h1>
+{{ selectedHero }}
+<hero-detail [hero]="selectedHero"></hero-detail>
+
+<hero-list [heroes]="heroes" [hero]="selectedHero"></hero-list>
