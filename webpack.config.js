@@ -4,8 +4,9 @@
 var path = require('path');
 var webpack = require('webpack');
 var pkg = require('./package.json');
-var src = __dirname + '/src';
-var dist = __dirname + '/dist';
+var public = __dirname + '/public';
+var app = __dirname + '/public/app';
+var dist = __dirname + '/public/dist';
 var publicUrl = 'http://localhost:3000/';
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
     colors: true,
     historyApiFallback: true,
     hot: true,
-    contentBase: 'app',
+    contentBase: public,
     publicPath: '/dist',
     proxy: {
       '*': 'http://localhost:3000'
@@ -31,24 +32,15 @@ module.exports = {
   },
 
   entry: {
-    angular2: [
-      'es6-shim',
-      'rxjs',
-      //'zone.js',
-      'reflect-metadata',
-      'angular2/platform/browser',
-      'angular2/http',
-      'angular2/core',
-      'angular2/router'
-    ],
     vendor: [
-      'lodash/index',
-      'moment'
+      'webpack/hot/dev-server',
+      'webpack-dev-server/client?http://localhost:9090',
+      './public/app/vendor.ts'
     ],
     app: [
       'webpack/hot/dev-server',
       'webpack-dev-server/client?http://localhost:9090',
-      './app/bootstrap.ts'
+      './public/app/bootstrap.ts'
     ]
   },
 
@@ -62,13 +54,17 @@ module.exports = {
 
   resolve: {
     root: __dirname,
-    extensions: ['', '.ts', '.js', '.json'],
-    modulesDirectories: ['node_modules', 'src']
+    extensions: ['', '.ts', '.js', '.json', '.jade', '.html', '.scss', '.css'],
+    modulesDirectories: ['node_modules', 'src'],
+    alias: {
+      angular: 'angular2/core'
+    }
   },
 
   module: {
     loaders: [
-      {test: /\.jade$/, loader: 'jade'},
+      {test: /\.html$/, loader: 'html'},
+      {test: /\.jade$/, loader: 'template-html'},
       {test: /\.json$/, loader: 'json'},
       {test: /\.css$/, loader: 'raw!autoprefixer?browsers=last 2 versions'},
       {test: /\.scss$/, loader: 'raw!sass!autoprefixer?browsers=last 2 versions'},
@@ -101,11 +97,11 @@ module.exports = {
     // optimize chunks that are duplicated
     new webpack.optimize.DedupePlugin(),
     // Generate a chunk for angular2. Ensures that no module enters in the angular chunk
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'angular2',
-      minChunks: Infinity,
-      filename: 'angular2.js'
-    })
+    //new webpack.optimize.CommonsChunkPlugin({
+    //  name: 'angular2',
+    //  minChunks: Infinity,
+    //  filename: 'angular2.js'
+    //})
     // Generate a chunk for vendors.
     //new webpack.optimize.CommonsChunkPlugin({
     //  name: 'vendor',

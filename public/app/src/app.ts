@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core'
 
-const myAppView = require('./myApp.jade')();
-const myAppStyles = require('./myApp.scss');
+const appView = require('./app.jade');
+const appStyles = require('./app.scss');
 
 @Component({
   selector: 'my-app',
-  template: myAppView,
-  styles: [myAppStyles]
+  template: appView,
+  styles: [appStyles]
 })
 
 export class App {
-  constructor(){}
+  public title = 'Yo';
 }
