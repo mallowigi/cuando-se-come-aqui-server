@@ -28,7 +28,7 @@ export class App implements OnInit {
   public heroes:Hero[];
   public selectedHero:Hero;
 
-  private getHeroes():Hero[] {
+  private getHeroes():void {
     this.heroRepository.getHeroes()
       .then((heroes) => this.heroes = heroes);
   }

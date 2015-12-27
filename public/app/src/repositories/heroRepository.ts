@@ -16,7 +16,7 @@ let HEROES:Hero[] = [
 
 @Injectable()
 export class HeroRepository {
-  getHeroes():(Hero[]|Promise<Hero[]>) {
+  getHeroes():Promise<Hero[]> {
     return Promise.resolve(HEROES);
   }
 

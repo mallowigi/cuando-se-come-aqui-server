@@ -14,7 +14,7 @@ export class HeroListComponent {
   @Input('heroes') public heroes:Hero[];
   @Input('hero') public selectedHero:Hero;
 
-  public onSelect(hero:Hero) {
+  public onSelect(hero:Hero):void {
     this.selectedHero = hero;
   }
 }
