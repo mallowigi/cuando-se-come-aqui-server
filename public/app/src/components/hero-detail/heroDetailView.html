@@ -1,6 +1,15 @@
-<div class="hero-component" *ngIf="hero">
+<div class="hero-component">
     <h1>Welcome {{ hero.name }}</h1>
     <div>
-        <label>name:</label><input placeholder="name" [(ngModel)]="hero.name"/>
+        <label>name:</label>
+        <input placeholder="name" [(ngModel)]="hero.name"/>
+    </div>
+
+    <div>
+        <label>Add hero:</label>
+        <input placeholder="hero name" #newHero
+               (keyup.enter)="addHero(newHero.value)"
+               (blur)="addHero(newHero.value)"
+        />
     </div>
 </div>

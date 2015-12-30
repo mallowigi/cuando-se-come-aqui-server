@@ -1,3 +1,7 @@
+<h1>Hero List</h1>
+
+<h2 *ngIf="selectedHero">Selected Hero: {{ selectedHero?.name }}</h2>
+
 <div class="hero-list">
     <ul class="heroes">
         <li *ngFor="#hero of heroes"
@@ -7,3 +11,5 @@
         </li>
     </ul>
 </div>
+
+<hero-detail [hero]="selectedHero" *ngIf="selectedHero"></hero-detail>

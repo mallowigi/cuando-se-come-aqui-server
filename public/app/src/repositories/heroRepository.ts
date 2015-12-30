@@ -1,5 +1,8 @@
+import * as _ from "lodash";
+
 import {Injectable} from "angular2/core"
-import {Hero} from "../models/Hero";
+import {Hero} from "../typings/Hero";
+
 
 let HEROES:Hero[] = [
   {'id': 11, 'name': 'Mr. Nice'},
@@ -16,8 +19,15 @@ let HEROES:Hero[] = [
 
 @Injectable()
 export class HeroRepository {
-  getHeroes():Promise<Hero[]> {
+  static getHeroes():Promise<Hero[]> {
     return Promise.resolve(HEROES);
+  }
+
+  static addHero(hero:Hero) {
+    if (!hero.id) {
+      hero.id = _.max(_.pluck(HEROES, 'id')) + 1;
+    }
+    HEROES.push(hero);
   }
 
 

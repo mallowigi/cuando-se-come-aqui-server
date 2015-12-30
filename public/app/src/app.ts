@@ -3,7 +3,7 @@ import {HeroDetailComponent} from './components/hero-detail/heroDetail';
 import {HeroListComponent} from './components/hero-list/heroList';
 
 import {HeroRepository} from "./repositories/heroRepository";
-import {Hero} from "./models/Hero";
+import {Hero} from "./typings/Hero";
 
 const appView = require('./app.html');
 const appStyles = require('./app.scss');
@@ -29,7 +29,7 @@ export class App implements OnInit {
   public selectedHero:Hero;
 
   private getHeroes():void {
-    this.heroRepository.getHeroes()
+    HeroRepository.getHeroes()
       .then((heroes) => this.heroes = heroes);
   }
 }
