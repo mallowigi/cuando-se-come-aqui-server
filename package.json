@@ -22,7 +22,8 @@
     "test": "mocha test/**/*_spec.js",
     "server": "npm run develop",
     "webpack-server": "webpack-dev-server --colors --hot",
-    "install": "npm install && npm link nodemon typings tsd webpack-dev-server webpack typescript"
+    "webpack": "webpack --watch",
+    "install": "npm i -g nodemon typings tsd webpack-dev-server webpack typescript cordova karma"
   },
   "repository": {
     "type": "git",
