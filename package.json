@@ -1,5 +1,5 @@
 {
-  "name": "cuando-se-come-aqui-server",
+  "name": "muchacho",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -13,17 +13,11 @@
     "env:dev": "NODE_ENV=development",
     "env:prod": "NODE_ENV=production",
     "prebuild": "rm -rf public/dist",
-    "build": "npm run build:dev && npm run build:prod",
-    "build:dev": "npm run env:dev webpack --colors --display-error-details --display-cached",
-    "build:prod": "npm run env:prod webpack --colors --display-error-details --display-cached",
     "develop": "nodemon index.js",
     "lint": "eslint index.js src test",
-    "copy:dist": "cp -r src/public/. dist",
     "test": "mocha test/**/*_spec.js",
     "server": "npm run develop",
-    "webpack-server": "webpack-dev-server --colors --hot",
-    "webpack": "webpack --watch",
-    "install": "npm i -g nodemon typings tsd webpack-dev-server webpack typescript cordova karma"
+    "install": "npm i -g nodemon pm2"
   },
   "repository": {
     "type": "git",
@@ -31,7 +25,7 @@
   },
   "author": {
     "name": "Elior",
-    "email": "elior.b@dynamicyield.com"
+    "email": "elior.boukhobza@gmail.com"
   },
   "license": "LicenseRef-LICENSE",
   "bugs": {
@@ -39,7 +33,6 @@
   },
   "homepage": "https://github.com/eliorb/cuando-se-come-aqui-server#readme",
   "dependencies": {
-    "angular2": "^2.0.0-beta.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",
@@ -47,8 +40,6 @@
     "ejs": "^2.3.4",
     "electrolyte": "^0.2.0",
     "errorhandler": "^1.4.2",
-    "es6-shim": "^0.33.0",
-    "es7-reflect-metadata": "^1.4.0",
     "express": "^4.13.3",
     "express-flash": "0.0.2",
     "express-session": "^1.12.1",
@@ -69,43 +60,19 @@
     "passport-local-mongoose": "^3.1.0",
     "promise-defer": "^1.0.0",
     "q": "^1.4.1",
-    "rxjs": "^5.0.0-beta.0",
-    "serve-favicon": "^2.3.0",
-    "zone.js": "^0.5.10"
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
     "chai": "^3.4.0",
-    "css-loader": "^0.23.0",
     "eslint": "^1.9.0",
-    "exports-loader": "^0.6.2",
-    "expose-loader": "^0.7.1",
-    "file-loader": "^0.8.5",
-    "html-loader": "^0.4.0",
-    "imports-loader": "^0.6.5",
-    "jade": "^1.11.0",
-    "jade-loader": "^0.8.0",
-    "json-loader": "^0.5.4",
-    "karma": "^0.13.16",
     "mocha": "^2.3.3",
     "node-sass": "^3.4.2",
-    "protractor": "^3.0.0",
-    "raw-loader": "^0.5.1",
-    "sass-loader": "^3.1.2",
-    "sinon": "^1.17.2",
-    "style-loader": "^0.13.0",
-    "template-html-loader": "0.0.3",
-    "ts-loader": "^0.7.2",
-    "tsd": "^0.6.5",
-    "typescript": "^1.7.5",
-    "typings": "^0.3.5",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "sinon": "^1.17.2"
   },
   "apps": [
     {
-      "name": "cuando-se-come-aqui-server",
+      "name": "muchacho",
       "script": "index.js"
     }
   ]
