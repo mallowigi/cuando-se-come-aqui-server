@@ -1,5 +1,5 @@
 var passport = require('passport');
-var Q = require('Q');
+var Q = require('q');
 var crypto = require('crypto');
 var Mailgun = require('mailgun').Mailgun;
 
