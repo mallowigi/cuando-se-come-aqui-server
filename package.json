@@ -15,8 +15,7 @@
     "develop": "nodemon index.js",
     "lint": "eslint index.js src test",
     "test": "mocha test/**/*_spec.js",
-    "server": "npm run develop",
-    "install": "npm i -g nodemon pm2"
+    "server": "npm run develop"
   },
   "repository": {
     "type": "git",
