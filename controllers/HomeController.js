@@ -16,7 +16,7 @@ exports = module.exports = function HomeControllerFactory (secrets, routes) {
     if (!req.user) {
       return res.redirect(routes.build('welcome'));
     }
-    res.render('index', {title: 'Home'});
+    res.render('landing/index', {title: 'Home'});
   };
 
   /**
