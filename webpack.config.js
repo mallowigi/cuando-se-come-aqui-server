@@ -33,10 +33,11 @@ module.exports = {
 
   entry: {
     vendor: [
-      './public/app/vendor.ts'
+      'web-animations.min',
+      path.resolve('public/app/vendor')
     ],
     app: [
-      './public/app/bootstrap.ts'
+      path.resolve('public/app/bootstrap')
     ]
   },
 
@@ -53,7 +54,9 @@ module.exports = {
     extensions: ['', '.ts', '.js', '.json', '.jade', '.html', '.scss', '.css', '.png', '.jpg'],
     modulesDirectories: ['node_modules', 'src'],
     alias: {
-      angular: 'angular2/core'
+      angular: 'angular2/core',
+      ionic: 'ionic-framework',
+      'web-animations.min': path.normalize('ionic-framework/js/web-animations.min')
     }
   },
 
@@ -68,7 +71,14 @@ module.exports = {
       {
         test: /\.ts$/, loader: 'ts',
         query: {
-          'ignoreDiagnostics': []
+          'ignoreDiagnostics': [],
+          cacheDirectory: true,
+          plugins: [
+            "angular2-annotations",
+            "transform-decorators-legacy",
+            "transform-class-properties",
+            "transform-flow-strip-types"
+          ]
         },
         exclude: [
           /\.min\.js$/,
@@ -79,10 +89,12 @@ module.exports = {
           /node_modules/
         ]
       }
-    ]
+    ],
     //noParse: [
-    //  /rtts_assert\/src\/rtts_assert/,
-    //  /reflect-metadata/
+    //  /es6-shim/,
+    //  /reflect-metadata/,
+    //  /web-animations/,
+    //  /zone\.js(\/|\\)dist(\/|\\)zone-microtask/
     //]
   },
 

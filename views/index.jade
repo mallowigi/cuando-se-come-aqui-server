@@ -3,13 +3,13 @@
 extends layout
 
 block stylesheets
-  link(rel="stylesheet", href="/app/style.css")
+  link(rel="stylesheet", ios-href="/dist/app.ios.css")
+  link(rel="stylesheet", md-href="/dist/app.md.css")
 
 block content
-  my-app
+  ion-app
 
 block javascripts
-  script(src="dist/vendor.js")
-  //script(src="/dist/angular2.js")
-  //script(src="/dist/common.js")
+  script(src="/cordova.js")
+  script(src="/dist/vendor.js")
   script(src="/dist/app.js")

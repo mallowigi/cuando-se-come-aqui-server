@@ -23,7 +23,8 @@
     "server": "npm run develop",
     "webpack-server": "webpack-dev-server --colors --hot",
     "webpack": "webpack --watch",
-    "install": "npm i -g nodemon typings tsd webpack-dev-server webpack typescript cordova karma"
+    "install": "npm i -g nodemon typings tsd webpack-dev-server webpack typescript cordova karma",
+    "typings": "tsd install lodash webpack angular2 ionic"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",
+    "cordova": "^5.4.1",
     "cors": "^2.7.1",
     "ejs": "^2.3.4",
     "electrolyte": "^0.2.0",
@@ -53,6 +55,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.12.1",
     "express-validator": "^2.18.0",
+    "ionic-framework": "^2.0.0-alpha.45",
     "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "lusca": "^1.3.0",
@@ -75,6 +78,7 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
+    "awesome-typescript-loader": "^0.15.9",
     "chai": "^3.4.0",
     "css-loader": "^0.23.0",
     "eslint": "^1.9.0",

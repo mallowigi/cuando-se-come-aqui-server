@@ -1,4 +1,5 @@
 import './polyfills.ts';
+
 // Angular 2
 import 'angular2/platform/browser';
 import 'angular2/platform/common_dom';
@@ -12,3 +13,5 @@ import 'rxjs';
 // other 3rd parties
 import 'lodash';
 import 'moment';
+
+import "ionic-framework/ionic"

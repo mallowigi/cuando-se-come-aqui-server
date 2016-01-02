@@ -1,35 +1,18 @@
-import {Component, View, OnInit} from 'angular2/core'
-import {HeroDetailComponent} from './components/hero-detail/heroDetail';
-import {HeroListComponent} from './components/hero-list/heroList';
+import {App, Platform} from 'ionic-framework/ionic';
 
-import {HeroRepository} from "./repositories/heroRepository";
-import {Hero} from "./typings/Hero";
+var appView = require('./app.html');
 
-const appView = require('./app.html');
-const appStyles = require('./app.scss');
-
-@Component({
-  selector: 'my-app',
-  template: appView,
-  styles: [appStyles],
-  directives: [HeroDetailComponent, HeroListComponent],
-  providers: [HeroRepository]
+@App({
+  template: appView
 })
+export class MyApp {
+  constructor(platform: Platform) {
 
-export class App implements OnInit {
-  constructor(private heroRepository:HeroRepository) {
-  }
+    // this tells the tabs component which Pages
+    // should be each tab's root Page
 
-  ngOnInit():any {
-    this.getHeroes();
-  }
-
-
-  public heroes:Hero[];
-  public selectedHero:Hero;
-
-  private getHeroes():void {
-    HeroRepository.getHeroes()
-      .then((heroes) => this.heroes = heroes);
+    platform.ready().then(() => {
+      // Do any necessary cordova or native calls here now that the platform is ready
+    });
   }
 }
