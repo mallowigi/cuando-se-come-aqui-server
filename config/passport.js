@@ -4,7 +4,7 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var GoogleStrategy = require('passport-google-oauth').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 function Passport (secrets, User, passport) {
   this.secrets = secrets;
@@ -67,7 +67,7 @@ exports = module.exports = function (secrets, User) {
       });
     });
   }));
-/*
+
   passport.use(new FacebookStrategy(secrets.facebook, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
       User.findOne({facebook: profile.id}, function (err, existingUser) {
@@ -161,7 +161,7 @@ exports = module.exports = function (secrets, User) {
         });
       });
     }
-  }));*/
+  }));
 
   return new Passport(secrets, User, passport);
 

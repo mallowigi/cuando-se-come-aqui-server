@@ -92,3 +92,4 @@ exports = module.exports = app;
 
 // Define routes here so we can have the named routes inside the controllers
 require('./routes/homeRoutes')(app);
+require('./routes/authRoutes')(app);

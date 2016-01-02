@@ -11,6 +11,8 @@ var UserSchema = new Schema({
   email: {type: String, unique: true, lowercase: true, index: true},
   password: String,
   facebook: String,
+  google: String,
+  tokens: Array,
 
   profile: {
     name: {type: String, default: ''},
