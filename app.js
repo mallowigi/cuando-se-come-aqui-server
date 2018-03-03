@@ -1,41 +1,41 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var expressSession = require('express-session');
-var cors = require('cors');
-var lusca = require('lusca');
-var flash = require('express-flash');
-var expressValidator = require('express-validator');
-var errorHandler = require('errorhandler');
-var sass = require('node-sass-middleware');
-var Router = require('named-routes');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const expressSession = require('express-session');
+const cors = require('cors');
+const lusca = require('lusca');
+const flash = require('express-flash');
+const expressValidator = require('express-validator');
+const errorHandler = require('errorhandler');
+const sass = require('node-sass-middleware');
+const Router = require('named-routes');
 
 // config the ioc
-var ioc = require('./config/ioc');
+const ioc = require('./config/ioc');
 
 // App config
-var secrets = ioc.create('config/secrets');
-var passportConf = ioc.create('config/passport');
+const secrets = ioc.create('config/secrets');
+const passportConf = ioc.create('config/passport');
 
 // Load express
-var app = express();
+const app = express();
 
 // connect to the database
-var env = process.env.NODE_ENV || 'DEVELOPMENT';
+const env = process.env.NODE_ENV || 'DEVELOPMENT';
 mongoose.connect(secrets.db);
-mongoose.connection.on('error', function () {
+mongoose.connection.on('error', () => {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
 });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // middlewares
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -64,7 +64,7 @@ app.use(lusca({
 }));
 
 // Used to display whether the user is logged in
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
@@ -73,7 +73,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // ROUTES
-var router = new Router();
+const router = new Router();
 router.extendExpress(app);
 router.registerAppHelpers(app);
 

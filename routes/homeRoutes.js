@@ -1,7 +1,7 @@
-var express = require('express');
-var ioc = require('electrolyte');
-var HomeCtrl = ioc.create('handlers/HomeController');
-var UserCtrl = ioc.create('handlers/UsersController');
+const express = require('express');
+const ioc = require('electrolyte');
+const HomeCtrl = ioc.create('handlers/HomeController');
+const UserCtrl = ioc.create('handlers/UsersController');
 
 exports = module.exports = function (router) {
   router.get('/', 'home', HomeCtrl.index);
