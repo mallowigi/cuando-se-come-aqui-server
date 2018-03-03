@@ -45,5 +45,6 @@ exports = module.exports = function HomeControllerFactory (secrets, routes) {
   return new HomeController();
 };
 
+exports['@async'] = true;
 exports['@singleton'] = true;
 exports['@require'] = ['config/secrets', 'config/routes'];

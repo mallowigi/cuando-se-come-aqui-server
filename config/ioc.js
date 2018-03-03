@@ -3,9 +3,9 @@
  */
 var ioc = require('electrolyte');
 
-ioc.use('config', ioc.node('config'));
-ioc.use('handlers', ioc.node('controllers'));
-ioc.use('models', ioc.node('models'));
-ioc.use(ioc.node('.'));
+ioc.use('config', ioc.dir('config'));
+ioc.use('handlers', ioc.dir('controllers'));
+ioc.use('models', ioc.dir('models'));
+ioc.use(ioc.dir('.'));
 
-module.exports = ioc;
+exports = module.exports = ioc;
