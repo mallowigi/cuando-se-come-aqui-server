@@ -1,11 +1,11 @@
 /**
  * Created by eliorb on 10/12/2015.
  */
-const ioc = require('electrolyte');
+var ioc = require('electrolyte');
 
-ioc.Container().use('config', ioc.dir('config'));
-ioc.Container().use('handlers', ioc.dir('controllers'));
-ioc.Container().use('models', ioc.dir('models'));
-ioc.Container().use(ioc.dir('.'));
+ioc.use('config', ioc.node('config'));
+ioc.use('handlers', ioc.node('controllers'));
+ioc.use('models', ioc.node('models'));
+ioc.use(ioc.node('.'));
 
 module.exports = ioc;

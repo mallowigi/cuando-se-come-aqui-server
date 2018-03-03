@@ -1,10 +1,10 @@
 /**
  * Created by eliorb on 10/12/2015.
  */
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 function Passport (secrets, User, passport) {
   this.secrets = secrets;
@@ -26,12 +26,12 @@ Passport.prototype.isAuthenticated = function (req, res, next) {
  * Authorization Required middleware.
  */
 Passport.prototype.isAuthorized = function (req, res, next) {
-  const provider = req.path.split('/').slice(-1)[0];
+  var provider = req.path.split('/').slice(-1)[0];
 
   if (_.find(req.user.tokens, {kind: provider})) {
     next();
   } else {
-    res.redirectLoggedIn(`/auth/${provider}`);
+    res.redirectLoggedIn('/auth/' + provider);
   }
 };
 
@@ -106,7 +106,7 @@ exports = module.exports = function (secrets, User) {
             user.profile.name = profile.displayName;
             user.profile.gender = profile._json.gender;
             user.profile.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
-            user.profile.location = profile._json.location ? profile._json.location.name : '';
+            user.profile.location = (profile._json.location) ? profile._json.location.name : '';
             user.save(function (err) {
               done(err, user);
             });
